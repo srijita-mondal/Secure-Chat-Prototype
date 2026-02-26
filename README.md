@@ -29,6 +29,6 @@ The server authenticates the client, establishes a session identifier, and verif
 ### Client Side — Authenticated Message Transmission
 The client authenticates with the server, establishes a secure session, and sends authenticated messages protected with HMAC-based integrity checks.
 
-![Client Output](screenshots/client.png)
+![Client Output](client.png)
 
 
