@@ -1,1 +1,6 @@
-Standard Libraries
+# Standard library modules used
+socket
+json
+hmac
+hashlib
+secrets
