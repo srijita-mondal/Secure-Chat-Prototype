@@ -13,17 +13,16 @@ password = input("Password: ")
 client.send(username.encode())
 client.send(password.encode())
 
-auth = client.recv(1024)
+session_id = client.recv(1024).decode()
 
-if auth != b"AUTH_OK":
+if session_id == "AUTH_FAIL":
     print("Authentication failed")
-    client.close()
     exit()
 
-print("Secure session established")
+print("Secure session established:", session_id)
 
 while True:
     msg = input("Message: ")
-    mac = generate_mac(msg)
+    mac = generate_mac(session_id, msg)
     payload = f"{msg}||{mac}"
     client.send(payload.encode())
