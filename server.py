@@ -1,6 +1,6 @@
 import socket
 import json
-from crypto_utils import verify_mac
+from crypto_utils import verify_mac, new_session_id
 
 HOST = "0.0.0.0"
 PORT = 5000
@@ -17,22 +17,29 @@ print("Server listening...")
 conn, addr = server.accept()
 print("Connected:", addr)
 
-username = conn.recv(1024).decode()
-password = conn.recv(1024).decode()
+username = conn.recv(1024).decode().strip()
+password = conn.recv(1024).decode().strip()
 
 if USERS.get(username) != password:
     conn.send(b"AUTH_FAIL")
     conn.close()
-else:
-    conn.send(b"AUTH_OK")
+    exit()
+
+session_id = new_session_id()
+conn.send(session_id.encode())
+
+print("Session established:", session_id)
 
 while True:
     data = conn.recv(4096).decode()
     if not data:
         break
 
-    msg, mac = data.split("||")
-    if verify_mac(msg, mac):
-        print(f"[{username}] {msg}")
-    else:
-        print("Integrity check failed")
+    try:
+        msg, mac = data.split("||")
+        if verify_mac(session_id, msg, mac):
+            print(f"[{username}] {msg}")
+        else:
+            print("Integrity check failed")
+    except:
+        print("Malformed packet")
