@@ -17,3 +17,18 @@ Start server:
 
 ```bash
 python3 server.py
+```
+
+## Demonstration
+
+### Server Side — Session Establishment and Message Reception
+The server authenticates the client, establishes a session identifier, and verifies message integrity using MAC before displaying received messages.
+
+![Server Output](screenshots/server.png)
+
+### Client Side — Authenticated Message Transmission
+The client authenticates with the server, establishes a secure session, and sends authenticated messages protected with HMAC-based integrity checks.
+
+![Client Output](screenshots/client.png)
+
+
