@@ -1,4 +1,7 @@
 # Secure-Chat-Prototype
+
+**Status:** Educational prototype demonstrating authenticated client–server messaging over TCP.
+
 Basic client–server secure chat with TCP sockets and hash-based message authentication.
 
 This project implements a basic client–server secure chat system using TCP sockets.  
